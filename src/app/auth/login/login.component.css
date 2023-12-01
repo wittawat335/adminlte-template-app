@@ -1,0 +1,20 @@
+.login-box,
+a {
+    color: black;
+}
+
+.social-auth-links,
+a {
+    color: black;
+}
+
+.link-pass {
+    color: white;
+}
+
+.link-reg {
+    color: white;
+}
+.login-page, .register-page{
+    background-color:black;
+}
