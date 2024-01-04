@@ -1,0 +1,9 @@
+.close-btnModal {
+  font-family: cursive;
+  background-color: white;
+  padding: 6px 12px;
+  border-radius: 23px;
+  font-weight: bold;
+  color: #5582e4;
+  cursor: pointer;
+}
