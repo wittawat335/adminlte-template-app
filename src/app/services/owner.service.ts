@@ -9,7 +9,7 @@ import { Owner } from '../Interfaces/owner';
   providedIn: 'root',
 })
 export class OwnerService {
-  private apiUrl: string = environment.endpoint + 'User';
+  private apiUrl: string = environment.endpoint + 'oweners';
 
   constructor(private http: HttpClient) {}
 

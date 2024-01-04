@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  endpoint: 'http://localhost:5133/api/',
+  endpoint: 'https://localhost:7216/api/',
   keyLocalAuth: 'token',
 };

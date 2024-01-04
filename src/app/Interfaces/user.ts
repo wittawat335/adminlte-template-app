@@ -1,6 +1,6 @@
 export interface User {
-  user_code: string;
-  user_name: string;
-  user_phone: number;
-  user_email: string;
+  useR_CODE: string;
+  useR_NAME: string;
+  useR_PHONE_NO: number;
+  useR_EMAIL: string;
 }

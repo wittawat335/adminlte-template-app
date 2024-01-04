@@ -1,5 +1,5 @@
 export interface ResponseApi {
-  status: string;
+  isSuccess: boolean;
   message: string;
   value: any;
 }

@@ -11,7 +11,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <table datatable [dtOptions]="dtoptions" class="table table-bordered table-striped">
+                <table datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger"
+                    class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Op</th>
@@ -22,7 +23,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr></tr>
+                        <tr *ngFor="let item of dtData">
+                            <td><a class="btn btn-primary">Edit</a>
+                            </td>
+                            <td>{{item.useR_CODE}}</td>
+                            <td>{{item.useR_EMAIL}}</td>
+                            <td>{{item.useR_NAME}}</td>
+                            <td>{{item.useR_PHONE_NO}}</td>
+                        </tr>
                     </tbody>
 
                 </table>

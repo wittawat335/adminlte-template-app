@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
@@ -10,18 +11,30 @@ export class UserComponent implements OnInit {
   constructor(private service: RestApiService) {}
 
   dtData: any;
-  ngOnInit(): void {}
   dtoptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  ngOnInit(): void {
+    this.dtoptions = {
+      pagingType: 'full_numbers',
+      searching: true,
+      //  paging:false
+      language: {
+        searchPlaceholder: 'search ',
+      },
+    };
+    this.getList();
+  }
 
   getList() {
     this.service.GetList().subscribe({
-      next: (data){
-        if(data.status){
-          this.dtData = data.value; 
-        } else{
-
+      next: (response) => {
+        console.log(response);
+        if (response.isSuccess) {
+          this.dtData = response.value;
+          this.dtTrigger.next(null);
+        } else {
         }
-      }
-    })
+      },
+    });
   }
 }

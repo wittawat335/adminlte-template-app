@@ -9,7 +9,7 @@ import { User } from '../Interfaces/user';
   providedIn: 'root',
 })
 export class RestApiService {
-  private apiUrl: string = environment.endpoint + 'User';
+  private apiUrl: string = environment.endpoint + 'Users';
 
   constructor(private http: HttpClient) {}
 
