@@ -1,40 +1,127 @@
 <section class="content">
-    <div class="container-fluid">
-        <!-------------------------------------------- DataTable --------------------------------------------------->
-        <div class="card card-default">
-            <div class="card-header">
-                <h3 class="card-title">ผลการค้นหา</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <table datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger"
-                    class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Op</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of dtData">
-                            <td><a class="btn btn-primary">Edit</a>
-                            </td>
-                            <td>{{item.useR_CODE}}</td>
-                            <td>{{item.useR_EMAIL}}</td>
-                            <td>{{item.useR_NAME}}</td>
-                            <td>{{item.useR_PHONE_NO}}</td>
-                        </tr>
-                    </tbody>
-
-                </table>
-            </div>
+  <div class="container-fluid">
+    <!-------------------------------------------- DataTable --------------------------------------------------->
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">ผลการค้นหา</h3>
+        <div class="card-tools">
+          <a
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#modalDialog"
+            >Add</a
+          >
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
         </div>
+      </div>
+      <div class="card-body">
+        <table
+          datatable
+          [dtOptions]="dtoptions"
+          [dtTrigger]="dtTrigger"
+          class="table table-bordered table-striped"
+        >
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Browser</th>
+              <th>Platform(s)</th>
+              <th>Engine version</th>
+              <th>CSS grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dtData">
+              <td>
+                <a
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#modalDialog"
+                  ><i class="fa fa-edit"></i
+                ></a>
+                |
+                <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+              </td>
+              <td>{{ item.useR_CODE }}</td>
+              <td>{{ item.useR_NAME }}</td>
+              <td>{{ item.useR_PHONE_NO }}</td>
+              <td>{{ item.useR_EMAIL }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </section>
+
+<div class="modal fade" id="modalDialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-blue">
+        <h4 class="modal-title" id="modalTitle">
+          {{ isEdit ? "Update User" : "Add User" }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="userForm"
+          (ngSubmit)="isEdit ? updateUser(userForm) : addUser(userForm)"
+        >
+          <div class="form-group">
+            <label>Code</label>
+            <input
+              type="text"
+              placeholder="Code"
+              formControlName="useR_CODE"
+              class="form-control mb-3"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              placeholder="Name"
+              formControlName="useR_NAME"
+              class="form-control mb-3"
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone No.</label>
+            <input
+              type="text"
+              placeholder="Phone No."
+              formControlName="useR_PHONE_NO"
+              class="form-control mb-3"
+            />
+          </div>
+          <div class="form-group">
+            <label>E-Mail</label>
+            <input
+              type="text"
+              placeholder="E-Mail"
+              formControlName="useR_EMAIL"
+              class="form-control mb-3"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">
+            {{ isEdit ? "Update" : "Submit" }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

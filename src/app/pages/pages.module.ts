@@ -8,7 +8,7 @@ import { PositionComponent } from './position/position.component';
 import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
@@ -34,6 +34,7 @@ import { DataTablesModule } from 'angular-datatables';
     RouterModule,
     FormsModule,
     DataTablesModule,
+    ReactiveFormsModule,
   ],
 })
 export class PagesModule {}
