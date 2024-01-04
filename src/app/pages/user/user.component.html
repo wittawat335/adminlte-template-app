@@ -9,6 +9,7 @@
             class="btn btn-success"
             data-toggle="modal"
             data-target="#modalDialog"
+            (click)="add()"
             >Add</a
           >
           <button
@@ -30,10 +31,10 @@
           <thead>
             <tr>
               <th>Operation</th>
-              <th>Browser</th>
-              <th>Platform(s)</th>
-              <th>Engine version</th>
-              <th>CSS grade</th>
+              <th>HN เจ้าของ</th>
+              <th>ชื่อเจ้าของ</th>
+              <th>เบอร์ติดต่อ</th>
+              <th>อีเมลล์</th>
             </tr>
           </thead>
           <tbody>
@@ -43,13 +44,23 @@
                   class="btn btn-primary"
                   data-toggle="modal"
                   data-target="#modalDialog"
+                  (click)="editUser(item)"
                   ><i class="fa fa-edit"></i
                 ></a>
                 |
-                <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                <a class="btn btn-danger" (click)="deleteUser(item.useR_CODE)"
+                  ><i class="fa fa-trash"></i
+                ></a>
               </td>
               <td>{{ item.useR_CODE }}</td>
-              <td>{{ item.useR_NAME }}</td>
+              <td
+                style="cursor: pointer"
+                data-toggle="modal"
+                data-target="#modalDialog"
+                (click)="editUser(item)"
+              >
+                {{ item.useR_NAME }} &nbsp; {{ item.useR_SURNAME }}
+              </td>
               <td>{{ item.useR_PHONE_NO }}</td>
               <td>{{ item.useR_EMAIL }}</td>
             </tr>
@@ -82,7 +93,7 @@
           (ngSubmit)="isEdit ? updateUser(userForm) : addUser(userForm)"
         >
           <div class="form-group">
-            <label>Code</label>
+            <label>HN</label>
             <input
               type="text"
               placeholder="Code"
@@ -91,19 +102,28 @@
             />
           </div>
           <div class="form-group">
-            <label>Name</label>
+            <label>ชื่อ</label>
             <input
               type="text"
-              placeholder="Name"
+              placeholder="ชื่อ"
               formControlName="useR_NAME"
               class="form-control mb-3"
             />
           </div>
           <div class="form-group">
-            <label>Phone No.</label>
+            <label>นามสกุล</label>
             <input
               type="text"
-              placeholder="Phone No."
+              placeholder="นามสกุล"
+              formControlName="useR_SURNAME"
+              class="form-control mb-3"
+            />
+          </div>
+          <div class="form-group">
+            <label>เบอร์ติดต่อ</label>
+            <input
+              type="text"
+              placeholder="เบอร์ติดต่อ"
               formControlName="useR_PHONE_NO"
               class="form-control mb-3"
             />
@@ -112,14 +132,28 @@
             <label>E-Mail</label>
             <input
               type="text"
-              placeholder="E-Mail"
+              placeholder="test@example.com"
               formControlName="useR_EMAIL"
               class="form-control mb-3"
             />
           </div>
-          <button type="submit" class="btn btn-primary">
-            {{ isEdit ? "Update" : "Submit" }}
-          </button>
+          <div class="float-right">
+            <button
+              #closebutton
+              type="button"
+              class="btn btn-danger mr-2"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="userForm.invalid"
+            >
+              {{ isEdit ? "Update" : "Save" }}
+            </button>
+          </div>
         </form>
       </div>
     </div>
