@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
   selector: 'app-user',
@@ -6,7 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  constructor() {}
+  constructor(private service: RestApiService) {}
+
+  dtData: any;
   ngOnInit(): void {}
   dtoptions: DataTables.Settings = {};
+
+  getList() {
+    this.service.GetList().subscribe({
+      next: (data){
+        if(data.status){
+          this.dtData = data.value; 
+        } else{
+
+        }
+      }
+    })
+  }
 }

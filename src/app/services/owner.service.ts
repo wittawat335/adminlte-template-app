@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { ResponseApi } from '../Interfaces/responseApi';
-import { User } from '../Interfaces/user';
+import { Observable } from 'rxjs';
+import { Owner } from '../Interfaces/owner';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RestApiService {
+export class OwnerService {
   private apiUrl: string = environment.endpoint + 'User';
 
   constructor(private http: HttpClient) {}
@@ -23,11 +23,11 @@ export class RestApiService {
     );
   }
 
-  Add(req: User): Observable<ResponseApi> {
+  Add(req: Owner): Observable<ResponseApi> {
     return this.http.post<ResponseApi>(`${this.apiUrl}`, req);
   }
 
-  Update(req: User): Observable<ResponseApi> {
+  Update(req: Owner): Observable<ResponseApi> {
     return this.http.put<ResponseApi>(`${this.apiUrl}`, req);
   }
 
