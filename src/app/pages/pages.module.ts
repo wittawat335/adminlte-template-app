@@ -9,6 +9,7 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,12 @@ import { FormsModule } from '@angular/forms';
     PositionComponent,
     PagesComponent,
   ],
-  imports: [CommonModule, SharedModule, RouterModule, FormsModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    RouterModule,
+    FormsModule,
+    DataTablesModule,
+  ],
 })
 export class PagesModule {}

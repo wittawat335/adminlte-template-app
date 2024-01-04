@@ -5,7 +5,7 @@ import { PagesRoutingModule } from './pages/pages-routing.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/pages', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 
