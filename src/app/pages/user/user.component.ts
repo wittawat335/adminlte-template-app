@@ -26,9 +26,9 @@ import Swal from 'sweetalert2';
 export class UserComponent implements OnInit, AfterViewInit {
   @ViewChild('closebutton') closebutton!: ElementRef;
   @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
+
   userForm: FormGroup;
   dtData: any;
-
   dtoptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   isEdit: boolean = false;
@@ -60,11 +60,8 @@ export class UserComponent implements OnInit, AfterViewInit {
       pagingType: 'full_numbers',
       searching: true,
       lengthChange: false,
-      //destroy: true,
     };
     this.getList();
-
-    //this.setData();
   }
 
   ngAfterViewInit(): void {
@@ -91,6 +88,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.isEdit = false;
     this.userForm.reset();
   }
+
   editUser(user: User) {
     if (user != null) {
       this.isEdit = true;
@@ -164,14 +162,4 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  // setData() {
-  //   this.userForm = new FormGroup({
-  //     useR_CODE: new FormControl(),
-  //     useR_NAME: new FormControl(),
-  //     useR_SURNAME: new FormControl(),
-  //     useR_PHONE_NO: new FormControl(),
-  //     useR_EMAIL: new FormControl(),
-  //   });
-  // }
 }

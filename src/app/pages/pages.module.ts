@@ -6,9 +6,10 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { OnlyNumberDirective } from '../directives/only-number.directive';
 
 @NgModule({
-  declarations: [UserComponent, PagesComponent],
+  declarations: [UserComponent, PagesComponent, OnlyNumberDirective],
   exports: [UserComponent, PagesComponent],
   imports: [
     CommonModule,

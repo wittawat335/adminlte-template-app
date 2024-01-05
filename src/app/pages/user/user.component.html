@@ -87,8 +87,10 @@
               placeholder="Code"
               formControlName="useR_CODE"
               class="form-control mb-3"
+              minlength="6"
               maxlength="10"
               [readOnly]="isEdit"
+              onlyNumber
             />
           </div>
           <div class="form-group">
@@ -98,6 +100,7 @@
               placeholder="ชื่อ"
               formControlName="useR_FIRSTNAME"
               class="form-control mb-3"
+              minlength="3"
               maxlength="20"
             />
           </div>
@@ -108,6 +111,7 @@
               placeholder="นามสกุล"
               formControlName="useR_LASTNAME"
               class="form-control mb-3"
+              minlength="3"
               maxlength="20"
             />
           </div>
@@ -118,7 +122,9 @@
               placeholder="เบอร์ติดต่อ"
               formControlName="useR_PHONE_NO"
               class="form-control mb-3"
+              minlength="10"
               maxlength="10"
+              onlyNumber
             />
           </div>
           <div class="form-group">
