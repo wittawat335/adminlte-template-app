@@ -16,6 +16,7 @@ import { User } from 'src/app/Interfaces/user';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { UtilitiesService } from 'src/app/services/utilities.service';
 import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user',
@@ -107,10 +108,11 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.service.Add(this.userForm.value).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          this.closebutton.nativeElement.click();
-          this.utService.swalProgressBar('success', response.message);
-          this.getList();
-        } else this.utService.swalProgressBar('error', response.message);
+          this.onSuccess(response.message);
+        }
+      },
+      error: (e) => {
+        this.utService.swalProgressBar('error', e);
       },
     });
   }
@@ -119,10 +121,11 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.service.Update(this.userForm.value).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          this.closebutton.nativeElement.click();
-          this.utService.swalProgressBar('success', response.message);
-          this.getList();
-        } else this.utService.swalProgressBar('error', response.message);
+          this.onSuccess(response.message);
+        }
+      },
+      error: (e) => {
+        this.utService.swalProgressBar('error', e);
       },
     });
   }
@@ -131,11 +134,34 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.service.Delete(code).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          this.closebutton.nativeElement.click();
-          this.utService.swalProgressBar('success', response.message);
-          this.getList();
-        } else this.utService.swalProgressBar('error', response.message);
+          this.onSuccess(response.message);
+        }
       },
+      error: (e) => {
+        this.utService.swalProgressBar('error', e);
+      },
+    });
+  }
+
+  onSuccess(message: string) {
+    this.closebutton.nativeElement.click();
+    this.utService.swalProgressBar('success', message);
+    this.getList();
+  }
+
+  swalConfirm(value: unknown) {
+    Swal.fire({
+      title: 'คุณต้องการลบ' + ' ' + value + ' ' + 'ใช่หรือไม่',
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'ใช่',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ไม่ใช่',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteUser(value as string);
+      }
     });
   }
 
