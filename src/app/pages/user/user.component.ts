@@ -107,6 +107,8 @@ export class UserComponent implements OnInit, AfterViewInit {
       next: (response) => {
         if (response.isSuccess) {
           this.onSuccess(response.message);
+        } else {
+          this.utService.swalProgressBar('warning', response.message);
         }
       },
       error: (e) => {
