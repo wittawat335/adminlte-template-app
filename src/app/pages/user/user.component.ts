@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,16 +15,19 @@ import { Subject } from 'rxjs';
 import { User } from 'src/app/Interfaces/user';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { UtilitiesService } from 'src/app/services/utilities.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
   @ViewChild('closebutton') closebutton!: ElementRef;
+  @ViewChild(DataTableDirective) dtElement!: DataTableDirective;
   userForm: FormGroup;
   dtData: any;
+
   dtoptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   isEdit: boolean = false;
@@ -30,26 +39,41 @@ export class UserComponent implements OnInit {
   ) {
     this.userForm = this.fb.group({
       useR_CODE: ['', Validators.required],
+      useR_NAME: ['', Validators.required],
+      useR_SURNAME: ['', Validators.required],
+      useR_PHONE_NO: ['', Validators.required],
+      useR_EMAIL: ['', Validators.required],
     });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next(null);
   }
 
   ngOnInit(): void {
-    this.setData();
     this.dtoptions = {
       pagingType: 'full_numbers',
       searching: true,
+      lengthChange: false,
       //destroy: true,
     };
     this.getList();
+
+    //this.setData();
   }
 
-  setData() {
-    this.userForm = new FormGroup({
-      useR_CODE: new FormControl(),
-      useR_NAME: new FormControl(),
-      useR_SURNAME: new FormControl(),
-      useR_PHONE_NO: new FormControl(),
-      useR_EMAIL: new FormControl(),
+  getList() {
+    this.service.GetList().subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.dtData = response.value;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.dtTrigger.next(null);
+          });
+        } else {
+          this.utService.swalProgressBar('error', response.message);
+        }
+      },
     });
   }
 
@@ -105,16 +129,13 @@ export class UserComponent implements OnInit {
     });
   }
 
-  getList() {
-    this.service.GetList().subscribe({
-      next: (response) => {
-        if (response.isSuccess) {
-          this.dtData = response.value;
-          this.dtTrigger.next(null);
-        } else {
-          this.utService.swalProgressBar('error', response.message);
-        }
-      },
-    });
-  }
+  // setData() {
+  //   this.userForm = new FormGroup({
+  //     useR_CODE: new FormControl(),
+  //     useR_NAME: new FormControl(),
+  //     useR_SURNAME: new FormControl(),
+  //     useR_PHONE_NO: new FormControl(),
+  //     useR_EMAIL: new FormControl(),
+  //   });
+  // }
 }

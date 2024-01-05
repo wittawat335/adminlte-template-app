@@ -30,15 +30,26 @@
         >
           <thead>
             <tr>
-              <th>Operation</th>
               <th>HN เจ้าของ</th>
               <th>ชื่อเจ้าของ</th>
               <th>เบอร์ติดต่อ</th>
               <th>อีเมลล์</th>
+              <th>Operation</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of dtData">
+              <td>{{ item.useR_CODE }}</td>
+              <td
+                style="cursor: pointer"
+                data-toggle="modal"
+                data-target="#modalDialog"
+                (click)="editUser(item)"
+              >
+                {{ item.useR_NAME }}&nbsp;{{ item.useR_SURNAME }}
+              </td>
+              <td>{{ item.useR_PHONE_NO }}</td>
+              <td>{{ item.useR_EMAIL }}</td>
               <td>
                 <a
                   class="btn btn-primary"
@@ -52,17 +63,6 @@
                   ><i class="fa fa-trash"></i
                 ></a>
               </td>
-              <td>{{ item.useR_CODE }}</td>
-              <td
-                style="cursor: pointer"
-                data-toggle="modal"
-                data-target="#modalDialog"
-                (click)="editUser(item)"
-              >
-                {{ item.useR_NAME }} &nbsp; {{ item.useR_SURNAME }}
-              </td>
-              <td>{{ item.useR_PHONE_NO }}</td>
-              <td>{{ item.useR_EMAIL }}</td>
             </tr>
           </tbody>
         </table>
