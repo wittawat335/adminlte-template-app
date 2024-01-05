@@ -40,8 +40,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) {
     this.userForm = this.FormBuilder.group({
       useR_CODE: ['', Validators.required, Validators.maxLength(10)],
-      useR_NAME: ['', Validators.required, Validators.maxLength(20)],
-      useR_SURNAME: ['', Validators.required, Validators.maxLength(20)],
+      useR_FIRSTNAME: ['', Validators.required, Validators.maxLength(20)],
+      useR_LASTNAME: ['', Validators.required, Validators.maxLength(20)],
       useR_PHONE_NO: ['', Validators.required, Validators.maxLength(10)],
       useR_EMAIL: [
         '',
@@ -95,8 +95,8 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.isEdit = true;
       this.userForm.patchValue({
         useR_CODE: user.useR_CODE,
-        useR_NAME: user.useR_NAME,
-        useR_SURNAME: user.useR_SURNAME,
+        useR_NAME: user.useR_FIRSTNAME,
+        useR_SURNAME: user.useR_LASTNAME,
         useR_PHONE_NO: user.useR_PHONE_NO,
         useR_EMAIL: user.useR_EMAIL,
       });

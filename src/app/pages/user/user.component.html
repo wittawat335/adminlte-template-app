@@ -46,7 +46,7 @@
                 data-target="#modalDialog"
                 (click)="editUser(item)"
               >
-                {{ item.useR_NAME }}&nbsp;{{ item.useR_SURNAME }}
+                {{ item.useR_FIRSTNAME }}&nbsp;{{ item.useR_LASTNAME }}
               </td>
               <td>{{ item.useR_PHONE_NO }}</td>
               <td>{{ item.useR_EMAIL }}</td>
@@ -101,7 +101,7 @@
             <input
               type="text"
               placeholder="ชื่อ"
-              formControlName="useR_NAME"
+              formControlName="useR_FIRSTNAME"
               class="form-control mb-3"
             />
           </div>
@@ -110,7 +110,7 @@
             <input
               type="text"
               placeholder="นามสกุล"
-              formControlName="useR_SURNAME"
+              formControlName="useR_LASTNAME"
               class="form-control mb-3"
             />
           </div>
