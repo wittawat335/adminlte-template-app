@@ -31,22 +31,27 @@ export class UserComponent implements OnInit, AfterViewInit {
   dtoptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   isEdit: boolean = false;
+  submitted = false;
 
   constructor(
     private service: RestApiService,
     private utService: UtilitiesService,
-    private fb: FormBuilder
+    private FormBuilder: FormBuilder
   ) {
-    this.userForm = this.fb.group({
-      useR_CODE: ['', Validators.required],
-      useR_NAME: ['', Validators.required],
-      useR_SURNAME: ['', Validators.required],
-      useR_PHONE_NO: ['', Validators.required],
-      useR_EMAIL: ['', Validators.required],
+    this.userForm = this.FormBuilder.group({
+      useR_CODE: ['', Validators.required, Validators.maxLength(10)],
+      useR_NAME: ['', Validators.required, Validators.maxLength(20)],
+      useR_SURNAME: ['', Validators.required, Validators.maxLength(20)],
+      useR_PHONE_NO: ['', Validators.required, Validators.maxLength(10)],
+      useR_EMAIL: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
     });
-  }
-  ngAfterViewInit(): void {
-    this.dtTrigger.next(null);
   }
 
   ngOnInit(): void {
@@ -59,6 +64,10 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.getList();
 
     //this.setData();
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next(null);
   }
 
   getList() {
@@ -94,8 +103,8 @@ export class UserComponent implements OnInit, AfterViewInit {
     }
   }
 
-  updateUser(userForm: FormGroup) {
-    this.service.Update(this.userForm.value).subscribe({
+  addUser(userForm: FormGroup) {
+    this.service.Add(this.userForm.value).subscribe({
       next: (response) => {
         if (response.isSuccess) {
           this.closebutton.nativeElement.click();
@@ -105,8 +114,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       },
     });
   }
-  addUser(userForm: FormGroup) {
-    this.service.Add(this.userForm.value).subscribe({
+
+  updateUser(userForm: FormGroup) {
+    this.service.Update(this.userForm.value).subscribe({
       next: (response) => {
         if (response.isSuccess) {
           this.closebutton.nativeElement.click();
